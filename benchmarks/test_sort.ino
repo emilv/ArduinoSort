@@ -76,9 +76,17 @@ template<typename T> void gnomesort(T *arr, size_t count) {
   }
 }
 
+template<typename T> bool lg(T a, T b) {
+  return a > b;
+}
+
+template<> bool lg(char* a, char* b) {
+  return strcmp(a, b) > 0;
+}
+
 template<typename T> void insertionsort(T *arr, size_t count) {
   for (size_t i = 1; i < count; i++) {
-    for (size_t j = i; j > 0 && arr[j-1] > arr[j]; j--) {
+    for (size_t j = i; j > 0 && lg(arr[j-1], arr[j]); j--) {
       SWAP(arr[j-1], arr[j], T);
     }
   }
