@@ -84,10 +84,19 @@ template<> bool lg(char* a, char* b) {
   return strcmp(a, b) > 0;
 }
 
-template<typename T> void insertionsort(T *arr, size_t count) {
+template<typename T> void insertionsort(T *arr, size_t count, bool reverse, bool (*largerThan)(T, T)) {
   for (size_t i = 1; i < count; i++) {
-    for (size_t j = i; j > 0 && lg(arr[j-1], arr[j]); j--) {
+    for (size_t j = i; j > 0 && (largerThan(arr[j-1], arr[j]) != reverse); j--) {
       SWAP(arr[j-1], arr[j], T);
     }
   }
 }
+
+template<typename T> void insertionsort(T *arr, size_t count, bool reverse) {
+  insertionsort(arr, count, reverse, lg);
+}
+
+template<typename T> void insertionsort(T *arr, size_t count) {
+  insertionsort(arr, count, false);
+}
+
