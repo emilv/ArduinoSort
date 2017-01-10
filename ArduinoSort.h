@@ -3,6 +3,8 @@
 
 #include "Arduino.h"
 
+/**** These are the functions you can use ****/
+
 // Sort an array
 template<typename AnyType> void sortArray(AnyType array[], size_t sizeOfArray);
 
@@ -15,40 +17,46 @@ template<typename AnyType> void sortArray(AnyType array[], size_t sizeOfArray, b
 // Sort in reverse with custom comparison function
 template<typename AnyType> void sortArrayReverse(AnyType array[], size_t sizeOfArray, bool (*largerThan)(AnyType, AnyType));
 
-/**** Implementation below ****/
 
-#define SWAP(x, y, T) do { T SWAP = x; x = y; y = SWAP; } while (0)
 
-template<typename AnyType> bool builtinLargerThan(AnyType first, AnyType second) {
-  return first > second;
-}
 
-template<> bool builtinLargerThan(char* first, char* second) {
-  return strcmp(first, second) > 0;
-}
 
-template<typename AnyType> void insertionSort(AnyType array[], size_t sizeOfArray, bool reverse, bool (*largerThan)(AnyType, AnyType)) {
-  for (size_t i = 1; i < sizeOfArray; i++) {
-    for (size_t j = i; j > 0 && (largerThan(array[j-1], array[j]) != reverse); j--) {
-      SWAP(array[j-1], array[j], AnyType);
-    }
-  }
+/**** Implementation below. Do not use below functions ****/
+
+namespace ArduinoSort {
+	template<typename AnyType> bool builtinLargerThan(AnyType first, AnyType second) {
+		return first > second;
+	}
+
+	template<> bool builtinLargerThan(char* first, char* second) {
+		return strcmp(first, second) > 0;
+	}
+
+	template<typename AnyType> void insertionSort(AnyType array[], size_t sizeOfArray, bool reverse, bool (*largerThan)(AnyType, AnyType)) {
+		for (size_t i = 1; i < sizeOfArray; i++) {
+			for (size_t j = i; j > 0 && (largerThan(array[j-1], array[j]) != reverse); j--) {
+				AnyType tmp = array[j-1];
+				array[j-1] = array[j];
+				array[j] = tmp;
+			}
+		}
+	}
 }
 
 template<typename AnyType> void sortArray(AnyType array[], size_t sizeOfArray) {
-	insertionSort(array, sizeOfArray, false, builtinLargerThan);
+	ArduinoSort::insertionSort(array, sizeOfArray, false, ArduinoSort::builtinLargerThan);
 }
 
 template<typename AnyType> void sortArrayReverse(AnyType array[], size_t sizeOfArray) {
-	insertionSort(array, sizeOfArray, true, builtinLargerThan);
+	ArduinoSort::insertionSort(array, sizeOfArray, true, ArduinoSort::builtinLargerThan);
 }
 
 template<typename AnyType> void sortArray(AnyType array[], size_t sizeOfArray, bool (*largerThan)(AnyType, AnyType)) {
-	insertionSort(array, sizeOfArray, false, largerThan);
+	ArduinoSort::insertionSort(array, sizeOfArray, false, largerThan);
 }
 
 template<typename AnyType> void sortArrayReverse(AnyType array[], size_t sizeOfArray, bool (*largerThan)(AnyType, AnyType)) {
-	insertionSort(array, sizeOfArray, true, largerThan);
+	ArduinoSort::insertionSort(array, sizeOfArray, true, largerThan);
 }
 
 
