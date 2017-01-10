@@ -16,7 +16,7 @@ void benchmark() {
   //msort2_impl(arr);
   //bubblesort(arr, count);
   //gnomesort(arr, count);
-  //insertionsort(arr, count);
+  insertionsort(arr, count);
   printArr(arr, count);
 }
 
@@ -32,6 +32,16 @@ template<> void seeder(char** arr, int count) {
     arr[i] = calloc(10, sizeof(char));
     Serial.print("Input: ");
     Serial.readBytesUntil(10, arr[i], 9);
+    Serial.println(arr[i]);
+  }
+  Serial.setTimeout(1000);
+}
+
+template<> void seeder(String *arr, int count) {
+  Serial.setTimeout(60*1000);
+  for (int i = 0; i < count; i++) {
+    Serial.print("Input: ");
+    arr[i] = Serial.readStringUntil(10);
     Serial.println(arr[i]);
   }
   Serial.setTimeout(1000);
