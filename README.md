@@ -144,3 +144,39 @@ If you are sorting more than about five arrays you should choose one method that
 I ran this benchmarks onz a 16 MHz Arduino Pro Mini. Sizes are estimates. Bubble sort included for comparison.
 
 Columns: Name, Compiled size, Memory peak, Runtime (micros)
+
+
+### 2 elements
+
+| Sorting method      | Compiled size |
++---------------------+---------------+
+| Baseline, no sort   | 2 326 bytes   |
++---------------------+---------------+
+| qsort, standard lib | 3 510 bytes   |
+| gnome sort 2        | 2 388 bytes   |
+| bubblesort          | 2 354 bytes   |
+| sort2               | 2 344 bytes   |
+| insertion sort      | 2 344 bytes   |
+
+### 3 elements
+
+| Sorting method      | Compiled size |
++---------------------+---------------+
+| Baseline, no sort   | 2 352 bytes   |
++---------------------+---------------+
+| qsort, standard lib | 3 536 bytes   |
+| gnome sort 2        | 2 448 bytes   |
+| bubblesort          | 2 426 bytes   |
+| sort3               | 2 416 bytes   |
+| insertion sort      | 2 396 bytes   |
+
+### 20 elements
+
+| Sorting method      | Compiled size |
++---------------------+---------------+
+| Baseline, no sort   | 2 322 bytes   |
++---------------------+---------------+
+| qsort, standard lib | 3 504 bytes   |
+| gnome sort 2        | 2 400 bytes   |
+| bubblesort          | 2 370 bytes   |
+| insertion sort      | 2 364 bytes   |
