@@ -1,152 +1,57 @@
 # ArduinoSort
-Easy sorting functions for Arduino, with focus on low memory footprint.
+Easy sorting of arrays for Arduino, with focus on low memory footprint and ease of use.
 
 **NOTE: THIS IS NOT DONE YET**
 
 ## Why?
 
-Sometimes you need to sort an array of numbers or strings. There is very little documentation on this for the Arduino and I could not find a good library to help out.
+Sometimes you need to sort an array of numbers or strings. There is very little documentation on this for the Arduino and I could not find a good library to help out. So here it is!
 
-A lot of tutorials use what is called a "bubble sort". This is a very inefficient algorithm, but it works for small arrays and is easy to understand. But I don't want to code a bubble sort every time I need to sort something. I want something I can reuse, and that I know will use as little memory as possible.
+There are som tutorials that use what is called a "bubble sort". This works great on the Arduino because it uses very little memory. This library uses an algorithm called "insertion sort" because I have learned that it is even smaller, and also a little bit faster.
 
-This library is specially built for the Arduino. I have tested it in the Arduino IDE, run it on an Arduino Pro Mini, and I focus on a small memory footprint. You don't want to waste those precious memory bytes! Most optimizations are for small datasets with less than 20 elements, but even for larger arrays we provide some functions that fall back to the (almost unknown!) quicksort that is shipped with Arduino.
+I have built this library for the Arduino. I have tested it in the Arduino IDE, run it on an Arduino Pro Mini, and I focus on a small memory footprint. You don't want to waste those precious memory bytes! It will work great for arrays up to a few thousand elements, which is all you need on an Arduino.
 
 ## Let's get going!
 
-There are multiple methods to choose from. Don't worry, only the ones you use will be uploaded to your Ardunio. The reason to have multiple methods is that they target slightly different use cases.
-
 ### Easy
 
-Use this if you are unsure. It almost always works:
+This is almost always what you want:
 
-    sort(array, 10, int);
+    sortArray(array, 10);
 	
-This will sort an int array of 10 elements. The last parameter is the name of your type. Works with `int`, `float`, `bool` and `String`.
+This will sort an array of 10 elements. Works with `int`, `float`, `bool`, `char`, `String` and `char*`.
 
 To sort in reverse:
 
-    sort_rev(array, 10, int);
-
-### Small arrays, little memory
-
-If you know that your array is small you can use a smaller but slower algorithm, because the speed will not matter. Use this if you have less than about 100 elements:
-
-    sort_small(array, 42, String);
-	
-Works with `int`, `float`, `bool` and `String`.
-
-To sort in reverse:
-
-    sort_small_rev(array, 42, String);
-
-### Known size, less memory
-
-If you already know how large your array is, and it is at most 8 elements. There is a different function for each size of the array. These have very low memory footprint and are also very fast.
-
-    sort2(array, float);
-    sort3(array, float);
-	sort4(array, float);
-	sort5(array, float);
-	sort6(array, float);
-	sort7(array, float);
-	sort8(array, float);
-	
-Works with `int`, `float`, `bool` and `String`.
-
-To sort in reverse:
-
-    sort2_rev(array, float);
-	sort3_rev(array, float);
-	sort4_rev(array, float);
-	sort5_rev(array, float);
-	sort6_rev(array, float);
-	sort7_rev(array, float);
-	sort8_rev(array, float);
-	
-### Sort arrays of char*
-
-The Arduino typically uses the `String` type for strings. But there are some libraries and use cases where you use the type `char*` instead. These cannot be sorted by the above methods. Use this function to sort char*:
-
-    sort_char(array, 13);
-   
-Works with `char*`.
-
-To sort in reverse:
-
-    sort_char_rev(array, 13);
-	
-### Sort strings with international characters such as å
-
-This function lets you specify in what order each character should be sorted:
-
-    sort_local(array, 32, String, "abcdefghijklmnopqrstuvwxyzåäö");
-	
-Works with `String` and `char*`.
-
-To sort in reverse:
-
-    sort_local_rev(array, 32, String, "abcdefghijklmnopqrstuvwxyzåäö");
-	
-### Multidimensional array
-
-TBD
-
-### Sort multiple arrays simultaneously by the first
-
-TBD
+    sortArrayReverse(array, 10);
 
 ### Custom comparison function
 
-You can build your own comparison function. The function should take as arguments two of your elements and return a value indicating if one is smaller or larger than the other. It should return a value less than 0 if the first is smaller then the second, larger than 0 if the first is larger than the second, or 0 if they are equal.
+You can build your own comparison function. The function should take as arguments two of your elements and return `true` if the first argument is considered larger than the second. Return `false` if the second argument is larger than the first, or if they are equal.
 
-There are multiple variations on this sort method, because you may have different needs.
+Your comparison function takes two elements. **Example**:
 
-#### Custom easy
-
-Your comparison function takes two elements of a known type. Example:
-
-    int compare_ints(int a, int b) {
+    bool firstIsLarger(int a, int b) {
       if (a > b) {
-        return 1;
-      }
-      if (a < b) {
-        return -1;
-      }
-      return 0;
-    }
-    
-    usort_easy(array1, 10, int, compare_ints);
-
-#### Custom, flexible, uses pointers
-
-A more flexible version of the above that uses pointers instead of copying the elements. This is useful for your own types such as structs, but generally not for simple types such as `int` or `float`:
-
-    int compare_intp(int* a, int* b) {
-	  if (*a > *b) {
-	    return 1;
+        return true;
+      } else {
+	    return false;
 	  }
-      if (*a < *b) {
-        return -1;
-      }
-      return 0;
     }
     
-    usort_easy(array1, 10, int, compare_intp);
+    sortArray(array, 10, firstIsLarger);
+	
+To sort in reverse:
 
-
-
-## Choosing a method
-
-If you are sorting more than about five arrays you should choose one method that fits all the arrays. This is because "small" versions are actually copied right into where they are used. Having sort2, sort4, sort_small AND the regular sort is just wasteful. Choose sort_small if you have to sort in multiple places in your code.
+    sortArrayReverse(array, 10, firstIsLarger);
 
 ## Benchmarks
 
-I ran this benchmarks onz a 16 MHz Arduino Pro Mini. Sizes are estimates. Bubble sort included for comparison.
-
-Columns: Name, Compiled size, Memory peak, Runtime (micros)
-
+I ran this benchmarks on a 16 MHz Arduino Pro Mini. Sizes are estimates.
 
 ### 2 elements
+
+sort2 is specialized for two-element arrays: it is a macro with a simple ìf` statement.
 
 | Sorting method      | Compiled size |
 +---------------------+---------------+
@@ -159,6 +64,8 @@ Columns: Name, Compiled size, Memory peak, Runtime (micros)
 | insertion sort      | 2 344 bytes   |
 
 ### 3 elements
+
+sort3 is specialized for three-element arrays, similar to sort2
 
 | Sorting method      | Compiled size |
 +---------------------+---------------+
@@ -180,3 +87,11 @@ Columns: Name, Compiled size, Memory peak, Runtime (micros)
 | gnome sort 2        | 2 400 bytes   |
 | bubblesort          | 2 370 bytes   |
 | insertion sort      | 2 364 bytes   |
+
+### Conclusion
+
+According to the benchmark insertion sort is always smallest. This is great news! It means we can use it for everything. But why is it minimal? How can it be as small as a specialized sorting function? The reason is that the Arduino IDE optimizes the code. When it detects that we are rying to sort only a fixed number of elements (2, 3, ...) it removes code paths that are unused. These optimizations are based on decades of computer science research, some of them are very clever.
+
+You can always use the `sortArray` function, for small or large arrays. It will always be optimal in size for your use case.
+
+Insertion sort is pretty fast for elements up to a few hundred elements or so, maybe 1000. For really large arrays you might want to look into `qsort` instead. But such large arrays will not fit in the Arduino memory anyway so we don't care about that case.
