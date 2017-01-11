@@ -6,7 +6,7 @@ Easy sorting of arrays for Arduino, with focus on low memory footprint and ease 
 
 Sometimes you need to sort an array of numbers or strings. There is very little documentation on this for the Arduino and I could not find a good library to help out. So here it is!
 
-There are som tutorials that use what is called a "bubble sort". This works great on the Arduino because it uses very little memory. This library uses an algorithm called "insertion sort" because I have learned that it is even smaller, and also a little bit faster.
+There are som tutorials that use what is called a [bubble sort](https://en.wikipedia.org/wiki/Bubble_sort). This works great on the Arduino because it uses very little memory. This library uses an algorithm called [insertion sort](https://en.wikipedia.org/wiki/Insertion_sort) because I have learned that it is even smaller, and also a little bit faster.
 
 I have built this library for the Arduino. I have tested it in the Arduino IDE, run it on an Arduino Pro Mini, and I focus on a small memory footprint. You don't want to waste those precious memory bytes! It will work great for arrays up to a few thousand elements, which is all you need on an Arduino.
 
@@ -30,14 +30,14 @@ You can build your own comparison function. The function should take as argument
 
 Your comparison function takes two elements. **Example**:
 
-    bool firstIsLarger(int a, int b) {
-      if (a > b) {
+    bool firstIsLarger(int first, int second) {
+      if (first > second) {
         return true;
       } else {
 	    return false;
 	  }
     }
-    
+	
     sortArray(array, 10, firstIsLarger);
 	
 To sort in reverse:
@@ -86,8 +86,8 @@ sort3 is specialized for three-element arrays, similar to sort2
 
 ### Conclusion
 
-According to the benchmark insertion sort is always smallest. This is great news! It means we can use it for everything. But why is it minimal? How can it be as small as a specialized sorting function? The reason is that the Arduino IDE optimizes the code. When it detects that we are rying to sort only a fixed number of elements (2, 3, ...) it removes code paths that are unused. These optimizations are based on decades of computer science research, some of them are very clever.
+According to the benchmark insertion sort is always smallest. This is great news! It means we can use it for everything. But why is it minimal? How can it be as small as a specialized sorting function? The reason is that the Arduino IDE optimizes the code. When it detects that we are trying to sort only a fixed number of elements (2, 3, ...) it removes code paths that are unused. These optimizations are based on decades of computer science research, some of them are very clever.
 
-You can always use the `sortArray` function, for small or large arrays. It will always be optimal in size for your use case.
+You can always use the `sortArray` function, for small or large arrays. It will always be optimal in size for your use case. You can learn more about this on Wikipedia on [Optimizing compiler](https://en.wikipedia.org/wiki/Optimizing_compiler).
 
 Insertion sort is pretty fast for elements up to a few hundred elements or so, maybe 1000. For really large arrays you might want to look into `qsort` instead. But such large arrays will not fit in the Arduino memory anyway so we don't care about that case.
