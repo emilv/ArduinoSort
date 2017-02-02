@@ -1,8 +1,6 @@
 #ifndef ArduinoSort_h
 #define ArduinoSort_h
 
-#include "Arduino.h"
-
 /**** These are the functions you can use ****/
 
 // Sort an array
