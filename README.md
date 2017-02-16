@@ -55,7 +55,7 @@ To sort in reverse:
     
 ## Do you need help?
 
-Ask on the official Arduino forum or on Arduino StackExchange. Don't forget to google your question first! It might have been answered by someone else already.
+Ask on the official [Arduino forum](http://forum.arduino.cc/), on [Arduino StackExchange](http://arduino.stackexchange.com/), or on [Reddit /r/arduino](https://www.reddit.com/r/arduino/). Don't forget to google your question first! It might have been answered by someone else already.
 
 
 ## Benchmarks
