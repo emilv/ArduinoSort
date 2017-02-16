@@ -12,6 +12,12 @@ I have built this library for the Arduino. I have tested it in the Arduino IDE, 
 
 ## Let's get going!
 
+### Install
+
+1. Go to [releases](https://github.com/emilv/ArduinoSort/releases) and download the latest `ArduinoSort.zip`.
+2. Follow the [tutorial](https://www.arduino.cc/en/Guide/Libraries#toc4) on how to install a .ZIP library.
+3. Done! You can now use the library by going to *Sketch* -> *ArduinoSort*.
+
 ### Easy
 
 This is almost always what you want:
