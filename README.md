@@ -10,7 +10,7 @@ Easy sorting of arrays for Arduino, with focus on low memory footprint and ease 
 
 ## Why?
 
-Sometimes you need to sort an array, for example if you have multiple sensor readings and want the middle one. This library helps you sort in increasing order:
+Sometimes you need to sort an array. For example if you have multiple sensor readings and want the middle one. This library helps you sort in increasing order:
 
     12, 1, 5, 2, 6 --> 1, 2, 5, 6, 12
     
@@ -20,7 +20,7 @@ or in reverse:
     
 ArduinoSort compiles to smaller code than most other sort functions, saving precious program space on your Arduino.
 
-[![Arduino sketch using 12% storage space](docs/storage1.png?raw=true "Small on storage space")
+![Arduino sketch using 12% storage space](docs/storage1.png?raw=true "Small on storage space")
 
 ## Let's get going!
 

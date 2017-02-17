@@ -20,7 +20,7 @@ Last but not least, I use overloading so that the same function can take differe
 
 ## Smallest
 
-I have made multiple claims that ArduinoSort is the smallest sorting function. My [benchmarks](docs/BENCHMARKS.md) also show that. But why is it minimal? How can it be as small as a specialized sorting function? The reason is that the Arduino IDE optimizes the code. When it detects that we are trying to sort only a fixed number of elements (2, 3, ...) it removes code paths that are unused. These optimizations are based on decades of computer science research, some of them are very clever. You can learn more about this on Wikipedia on [Optimizing compiler](https://en.wikipedia.org/wiki/Optimizing_compiler)
+I have made multiple claims that ArduinoSort is the smallest sorting function. But why is it minimal? How can it be as small as a specialized sorting function? The reason is that the Arduino IDE optimizes the code. When it detects that we are trying to sort only a fixed number of elements (2, 3, ...) it removes code paths that are unused. These optimizations are based on decades of computer science research, some of them are very clever. You can learn more about this on Wikipedia on [Optimizing compiler](https://en.wikipedia.org/wiki/Optimizing_compiler)
 
 ## Faster than bubble sort? But both are in O(n^2)
 
