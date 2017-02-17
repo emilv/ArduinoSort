@@ -1,6 +1,6 @@
 # ArduinoSort
 
-Easy sorting of arrays for Arduino, with focus on low memory footprint and ease of use.
+Easy sorting of arrays for Arduino, with focus on low memory footprint.
 
 * Easy to use
 * Small. Less program storage space than bubble sort or qsort!
