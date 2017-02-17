@@ -8,7 +8,7 @@ This section is advanced reading. You do not need to understand this to use Ardu
 
 * a [stable](https://en.wikipedia.org/wiki/Sorting_algorithm#Stability) sort, which means that elements that are equal will not be swapped
 * faster in practice than [bubble sort](https://en.wikipedia.org/wiki/Bubble_sort)
-* small in size when compiled for Arduino ([benchmarks](docs/BENCHMARKS.md))
+* small in size when compiled for Arduino ([benchmarks](BENCHMARKS.md))
 
 This library is implemented entirely in the file `ArduinoSort.h`. The reason is that we want to keep code size down, and including a `.cpp` file would have made the size larger. The long explanation is that if we used a .cpp file we would need to compile the sort functions for all data types, even for those that are not used in your program. By putting everything in the .h file and use templating we give the compiler more control over what to include in the final binary.
 
