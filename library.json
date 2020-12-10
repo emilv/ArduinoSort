@@ -1,0 +1,13 @@
+{
+  "name": "ArduinoSort",
+  "keywords": "sort, sorting",
+  "description": "Easy sorting of arrays for Arduino, with focus on low memory footprint.",
+  "homepage": "https://github.com/emilv/ArduinoSort",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emilv/ArduinoSort.git"
+  },
+  "version": "1.0.0",
+  "frameworks": "arduino",
+  "platforms": "*"
+}
